@@ -1,0 +1,10 @@
+/.venv
+/.env
+/.pytest_cache
+qdrant_local_db/
+__pycache__/
+rag/__pycache__/
+tests/__pycache__/
+tools/__pycache__/
+*.py[cod]
+*$py.class
