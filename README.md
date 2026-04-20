@@ -14,6 +14,7 @@ KittiesAI/
 │   ├── analyst.py          # Аналитик (Использует sandbox для расчетов/графиков)
 │   └── editor.py           # Редактор (Критик, факт-чекер и писатель отчета)
 └── tools/                  # Инструменты
+    ├── agent_tools.py
     ├── sandbox.py          # DockerSandbox
     └── web_search.py       # TavilyClient
 ```
