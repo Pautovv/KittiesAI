@@ -12,7 +12,7 @@ PROMPT = """
 agent = create_agent(
     llm, 
     tools=[], 
-    state_modifier=PROMPT
+    system_prompt=PROMPT
 )
 
 def editor_node(state):

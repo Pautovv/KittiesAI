@@ -7,12 +7,13 @@ PROMPT = """
 Ты Researcher (Искатель). 
 Твоя задача — искать в интернете максимально точные, актуальные и подробные данные по запросу.
 Используй инструмент search_internet. Добывай факты, цифры и ссылки. Никогда не выдумывай информацию.
+ВАЖНО: При вызове инструмента передавай аргументы в строгом формате JSON!
 """
 
 agent = create_agent(
     llm, 
     tools=[search_internet], 
-    state_modifier=PROMPT
+    system_prompt=PROMPT
 )
 
 def researcher_node(state):
