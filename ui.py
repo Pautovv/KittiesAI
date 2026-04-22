@@ -19,6 +19,12 @@ async def on_message(message: cl.Message):
     async for event in app.astream(state, {"recursion_limit": 20}):
         for node_name, state_update in event.items():
             if node_name == "Supervisor":
+                if "messages" in state_update:
+                    new_messages = state_update["messages"]
+                    last_agent_response = new_messages[-1].content
+                    async with cl.Step(name="Supervisor (Smalltalk)") as step:
+                        step.output = last_agent_response
+                    state["messages"].extend(new_messages)
                 continue 
             
             new_messages = state_update["messages"]
