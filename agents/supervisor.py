@@ -29,8 +29,6 @@ SUPERVISOR_PROMPT = """Ты Supervisor (Управляющий).
 5. SMALLTALK: Заполняй 'smalltalk_response' и выбирай 'FINISH' ТОЛЬКО если в сообщении НЕТ конкретной задачи. Если юзер просит "напиши код пожалуйста" — это ЗАДАЧА, а не smalltalk! Не путай вежливость с пустой болтовней.
 """
 
-from langchain_core.messages import AIMessage, SystemMessage 
-
 def supervisor_node(state: AgentState):
     messages_list = state.get("messages", [])
 

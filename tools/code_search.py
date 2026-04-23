@@ -48,5 +48,4 @@ class CodebaseSearchTool:
 
             return json.dumps({"status": "ok", "source": "local_db", "results": formatted}, ensure_ascii=False)
 
-        except Exception as e:
-            return json.dumps({"status": "error", "error": str(e)}, ensure_ascii=False)
+        except Exception as e: return json.dumps({"status": "error", "error": str(e)}, ensure_ascii=False)
