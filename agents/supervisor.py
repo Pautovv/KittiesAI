@@ -29,7 +29,7 @@ SUPERVISOR_PROMPT = """Ты Supervisor (Управляющий).
 5. SMALLTALK: Заполняй 'smalltalk_response' и выбирай 'FINISH' ТОЛЬКО если в сообщении НЕТ конкретной задачи. Если юзер просит "напиши код пожалуйста" — это ЗАДАЧА, а не smalltalk! Не путай вежливость с пустой болтовней.
 """
 
-from langchain_core.messages import AIMessage, SystemMessage # Убедись, что импорты такие
+from langchain_core.messages import AIMessage, SystemMessage 
 
 def supervisor_node(state: AgentState):
     messages_list = state.get("messages", [])
@@ -48,7 +48,12 @@ def supervisor_node(state: AgentState):
     
     if messages_list:
         last_sender = getattr(messages_list[-1], "name", "")
-        if res.next == last_sender and res.next != "FINISH":
+        
+        if last_sender == "Analyst" and res.next == "FINISH":
+            print("[Supervisor] -> ВНИМАНИЕ: Аналитик закончил, но Босс хочет FINISH. Принудительно зову Редактора!")
+            res.next = "Editor"
+
+        elif res.next == last_sender and res.next != "FINISH":
             print(f"[Supervisor] -> ВНИМАНИЕ: Попытка вызвать {res.next} по кругу! Проталкиваю пайплайн дальше.")
             pipeline = ["Researcher", "Analyst", "Editor", "FINISH"]
             if last_sender in pipeline:
