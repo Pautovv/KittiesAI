@@ -1,9 +1,11 @@
 from langchain_core.tools import tool
 from tools.sandbox import DockerSandbox
 from tools.web_search import WebSearchTool
+from tools.code_search import CodebaseSearchTool
 
 sandbox_instance = DockerSandbox()
 web_search_instance = WebSearchTool()
+local_db_instance = CodebaseSearchTool()
 
 @tool
 def execute_python_code(code: str) -> str:
@@ -25,3 +27,12 @@ def search_internet(query: str) -> str:
     Возвращает текстовую сводку найденной информации.
     """
     return web_search_instance.search(query)
+
+@tool
+def search_local_database(query: str) -> str:
+    """
+    Полезно для поиска информации в ЛОКАЛЬНОЙ базе знаний (твой код, документы, приватные файлы).
+    Ожидает на вход строку с поисковым запросом.
+    Возвращает найденные куски кода или текста из локальной БД.
+    """
+    return local_db_instance.search(query)

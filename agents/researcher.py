@@ -1,17 +1,19 @@
 from langchain_core.messages import HumanMessage
 from langchain.agents import create_agent
 from config import llm
-from tools.agent_tools import search_internet
+from tools.agent_tools import search_internet, search_local_database 
 
 PROMPT = """Ты Researcher (Искатель). 
-Твоя задача — ТОЛЬКО найти нужные данные в интернете (например, цены, факты, статистику).
-Используй инструмент search_internet. 
-ВАЖНО: При вызове инструмента передавай аргументы в строгом формате JSON!
-ПРАВИЛО: Выпиши найденные данные сухим текстом и ВСЁ. Не извиняйся за то, что не можешь выполнить другие части задачи пользователя (написать код и т.д.). Просто дай цифры."""
+Твоя задача — ТОЛЬКО найти нужные данные.
+У тебя есть два инструмента:
+1. search_internet — для поиска новостей, цен и публичной информации в интернете.
+2. search_local_database — для поиска приватного кода, документации или локальных файлов пользователя.
+ВАЖНО: При вызове инструментов передавай аргументы в строгом формате JSON!
+ПРАВИЛО: Выпиши найденные данные сухим текстом и ВСЁ. Не извиняйся, не пиши код и не делай расчеты."""
 
 agent = create_agent(
     llm, 
-    tools=[search_internet], 
+    tools=[search_internet, search_local_database],
     system_prompt=PROMPT
 )
 
