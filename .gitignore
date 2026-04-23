@@ -9,3 +9,4 @@ tools/__pycache__/
 *.py[cod]
 *$py.class
 .chainlit/
+chainlit.md
